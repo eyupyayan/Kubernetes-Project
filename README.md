@@ -7,7 +7,7 @@ Et større Kubernetes-prosjekt som demonstrerer:
 * Kubernetes manifests (ConfigMap, Secret, Deployment, Service)
 * Kustomize base + overlays (dev / prod)
 * GitOps med Argo CD lokalt
-* (Senere) Observability med Prometheus + Grafana
+* Observability med Prometheus + Grafana
 
 Prosjektet er laget for å vise helhetlig forståelse av moderne DevOps-flyt.
 
