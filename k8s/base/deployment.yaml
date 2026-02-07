@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-big-app
+  namespace: k8s-big
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-big-app
+  template:
+    metadata:
+      labels:
+        app: k8s-big-app
+    spec:
+      containers:
+        - name: app
+          image: eyupyayan/k8s-big-app:0.1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+              name: http
+          envFrom:
+            - configMapRef:
+                name: k8s-big-app-config
+            - secretRef:
+                name: k8s-big-app-secret
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 3000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            runAsNonRoot: true
+            runAsUser: 10001
+          # Hvis appen din skriver til disk, sett opp emptyDir og readOnlyRootFilesystem true senere.

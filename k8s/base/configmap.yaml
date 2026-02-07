@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k8s-big-app-config
+  namespace: k8s-big
+data:
+  APP_NAME: "k8s-big-app"
+  LOG_LEVEL: "info"
+  PORT: "3000"
