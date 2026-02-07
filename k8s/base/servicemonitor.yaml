@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: k8s-big-app
+  namespace: monitoring
+spec:
+  namespaceSelector:
+    matchNames:
+      - k8s-big
+  selector:
+    matchLabels:
+      app: k8s-big-app
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 10s
